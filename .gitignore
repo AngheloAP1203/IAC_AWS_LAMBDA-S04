@@ -1,12 +1,21 @@
 node_modules/
-.DS_Store
 
 .terraform/
 *.tfstate
-*.tfstate.backup
-.terraform.lock.hcl
-
+*.tfstate.*
+crash.log
+crash.*.log
 *.tfvars
 !*.tfvars.example
+.terraform.lock.hcl
 
 *.zip
+
+.vscode/
+.idea/
+.DS_Store
+desktop.ini
+
+*.png
+*.jpg
+*.jpeg
