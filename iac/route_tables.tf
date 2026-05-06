@@ -1,4 +1,3 @@
-# --- ROUTE TABLE: PÚBLICA (→ IGW) ---
 resource "aws_route_table" "public" {
   vpc_id = aws_vpc.main.id
 
@@ -20,7 +19,6 @@ resource "aws_route_table_association" "public_b" {
   route_table_id = aws_route_table.public.id
 }
 
-# --- ROUTE TABLE: PRIVADA AZ-a (→ NAT-A) ---
 resource "aws_route_table" "private_a" {
   vpc_id = aws_vpc.main.id
 
@@ -37,7 +35,6 @@ resource "aws_route_table_association" "private_a" {
   route_table_id = aws_route_table.private_a.id
 }
 
-# --- ROUTE TABLE: PRIVADA AZ-b (→ NAT-B) ---
 resource "aws_route_table" "private_b" {
   vpc_id = aws_vpc.main.id
 

@@ -1,10 +1,7 @@
-# --- AMAZON S3: ALMACENAMIENTO ---
-
 resource "aws_s3_bucket" "images" {
   bucket = "${var.project_name}-${var.environment}-images-upao-anghelo"
 }
 
-# Configuración de Lifecycle
 resource "aws_s3_bucket_lifecycle_configuration" "images_lifecycle" {
   bucket = aws_s3_bucket.images.id
 
@@ -23,7 +20,6 @@ resource "aws_s3_bucket_lifecycle_configuration" "images_lifecycle" {
   }
 }
 
-# Configuración de la notificación
 resource "aws_s3_bucket_notification" "s3_notif" {
   bucket = aws_s3_bucket.images.id
 
@@ -36,7 +32,6 @@ resource "aws_s3_bucket_notification" "s3_notif" {
   depends_on = [aws_sqs_queue_policy.allow_s3_events]
 }
 
-# --- S3: CIFRADO AES-256 ---
 resource "aws_s3_bucket_server_side_encryption_configuration" "images_sse" {
   bucket = aws_s3_bucket.images.id
 
@@ -47,7 +42,6 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "images_sse" {
   }
 }
 
-# --- S3: VERSIONADO ---
 resource "aws_s3_bucket_versioning" "images_versioning" {
   bucket = aws_s3_bucket.images.id
 
@@ -56,7 +50,6 @@ resource "aws_s3_bucket_versioning" "images_versioning" {
   }
 }
 
-# --- S3: ACCESO COMPLETAMENTE PRIVADO ---
 resource "aws_s3_bucket_public_access_block" "images" {
   bucket = aws_s3_bucket.images.id
 

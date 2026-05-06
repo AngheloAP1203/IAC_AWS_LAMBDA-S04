@@ -18,14 +18,10 @@ resource "aws_security_group" "crop_lambda_sg" {
   vpc_id      = aws_vpc.main.id
 }
 
-# Prefix list de S3 para reglas egress de las Lambdas
 data "aws_prefix_list" "s3" {
   name = "com.amazonaws.${var.aws_region}.s3"
 }
 
-# --- REGLAS DE SECURITY GROUP ---
-
-# upload-lambda: Outbound TCP 443 → SQS endpoint
 resource "aws_security_group_rule" "upload_to_sqs_vpce" {
   type                     = "egress"
   from_port                = 443
@@ -35,7 +31,6 @@ resource "aws_security_group_rule" "upload_to_sqs_vpce" {
   source_security_group_id = aws_security_group.vpce_sqs_sg.id
 }
 
-# upload-lambda: Outbound TCP 443 → S3 endpoint
 resource "aws_security_group_rule" "upload_to_s3_vpce" {
   type              = "egress"
   from_port         = 443
@@ -45,7 +40,6 @@ resource "aws_security_group_rule" "upload_to_s3_vpce" {
   prefix_list_ids   = [data.aws_prefix_list.s3.id]
 }
 
-# crop-lambda: Outbound TCP 443 → SQS endpoint
 resource "aws_security_group_rule" "crop_to_sqs_vpce" {
   type                     = "egress"
   from_port                = 443
@@ -55,7 +49,6 @@ resource "aws_security_group_rule" "crop_to_sqs_vpce" {
   source_security_group_id = aws_security_group.vpce_sqs_sg.id
 }
 
-# crop-lambda: Outbound TCP 443 → S3 endpoint
 resource "aws_security_group_rule" "crop_to_s3_vpce" {
   type              = "egress"
   from_port         = 443
@@ -65,7 +58,6 @@ resource "aws_security_group_rule" "crop_to_s3_vpce" {
   prefix_list_ids   = [data.aws_prefix_list.s3.id]
 }
 
-# vpce-sqs: Inbound TCP 443 ← upload-lambda
 resource "aws_security_group_rule" "vpce_from_upload" {
   type                     = "ingress"
   from_port                = 443
@@ -75,7 +67,6 @@ resource "aws_security_group_rule" "vpce_from_upload" {
   source_security_group_id = aws_security_group.upload_lambda_sg.id
 }
 
-# vpce-sqs: Inbound TCP 443 ← crop-lambda
 resource "aws_security_group_rule" "vpce_from_crop" {
   type                     = "ingress"
   from_port                = 443
