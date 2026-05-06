@@ -1,4 +1,3 @@
-# --- API GATEWAY HTTP v2 ---
 resource "aws_apigatewayv2_api" "http_api" {
   name          = "${var.project_name}-${var.environment}-api"
   protocol_type = "HTTP"
