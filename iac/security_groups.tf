@@ -1,5 +1,3 @@
-# --- SECURITY GROUPS (sin reglas inline para evitar dependencia circular) ---
-
 resource "aws_security_group" "vpce_sqs_sg" {
   name        = "${var.project_name}-vpce-sqs-sg-${var.environment}"
   description = "sg-vpce-sqs"
