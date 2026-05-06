@@ -53,14 +53,15 @@ IAC_Semana04/
 ├── README.md
 ├── architecture.mermaid
 ├── architecture.mermaid.svg
-├── mi_foto_perfil.png          <- imagen de prueba
+├── assets/
+│   └── mi_foto_perfil.png      <- imagen de prueba
 │
 ├── iac/
 │   ├── providers.tf
 │   ├── variables.tf
 │   ├── outputs.tf
-│   ├── terraform.tfvars.example  <- este SÍ se sube a Git
-│   ├── terraform.tfvars          <- este NO (está en .gitignore)
+│   ├── terraform.tfvars.example
+│   ├── terraform.tfvars         
 │   ├── vpc.tf
 │   ├── subnets.tf
 │   ├── nat.tf
@@ -161,7 +162,7 @@ Enviar la imagen de prueba:
 ```bash
 curl -X POST <URL_DEL_OUTPUT> \
   -H "Content-Type: image/png" \
-  --data-binary "@../mi_foto_perfil.png"
+  --data-binary "@../assets/mi_foto_perfil.png"
 ```
 
 Respuesta esperada:
