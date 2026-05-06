@@ -1,11 +1,11 @@
 {
   "name": "lambda-crop",
   "version": "1.0.0",
-  "description": "Recorte circular de imágenes",
+  "description": "Recorte circular de imágenes con Jimp (Pure JS)",
   "main": "index.mjs",
   "type": "module",
   "dependencies": {
     "@aws-sdk/client-s3": "^3.0.0",
-    "sharp": "^0.33.5"
+    "jimp": "^0.22.12"
   }
 }
