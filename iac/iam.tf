@@ -1,4 +1,3 @@
-# --- POLÍTICA DE ASUNCIÓN DE ROL (compartida) ---
 data "aws_iam_policy_document" "lambda_assume_role" {
   statement {
     actions = ["sts:AssumeRole"]
@@ -9,7 +8,6 @@ data "aws_iam_policy_document" "lambda_assume_role" {
   }
 }
 
-# --- ROL: upload-lambda-role ---
 resource "aws_iam_role" "upload_lambda_role" {
   name               = "upload-lambda-role-${var.environment}"
   assume_role_policy = data.aws_iam_policy_document.lambda_assume_role.json
@@ -43,7 +41,6 @@ resource "aws_iam_role_policy_attachment" "upload_s3_attach" {
   policy_arn = aws_iam_policy.upload_policy.arn
 }
 
-# --- ROL: crop-lambda-role ---
 resource "aws_iam_role" "crop_lambda_role" {
   name               = "crop-lambda-role-${var.environment}"
   assume_role_policy = data.aws_iam_policy_document.lambda_assume_role.json

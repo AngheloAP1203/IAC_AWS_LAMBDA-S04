@@ -1,4 +1,3 @@
-# --- CLOUDWATCH: ALARMA SOBRE DLQ ---
 resource "aws_cloudwatch_metric_alarm" "dlq_messages" {
   alarm_name          = "dlq-messages-alarm-${var.environment}"
   metric_name         = "ApproximateNumberOfMessagesVisible"
