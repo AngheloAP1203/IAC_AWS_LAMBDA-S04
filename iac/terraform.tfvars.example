@@ -1,0 +1,8 @@
+# Entorno base
+environment    = "dev"
+aws_region     = "us-east-1"
+project_name   = "image-processor"
+
+# Credenciales y datos sensibles (Valores falsos como ejemplo)
+aws_profile    = "generic_profile"
+aws_account_id = "000000000000"
