@@ -11,7 +11,6 @@ resource "aws_apigatewayv2_api" "http_api" {
   }
 }
 
-# --- STAGE (Despliegue automatico) ---
 resource "aws_apigatewayv2_stage" "default" {
   api_id      = aws_apigatewayv2_api.http_api.id
   name        = "$default"
@@ -33,13 +32,11 @@ resource "aws_apigatewayv2_stage" "default" {
   }
 }
 
-# --- LOG GROUP PARA API GW ---
 resource "aws_cloudwatch_log_group" "api_logs" {
   name              = "/aws/apigateway/${var.project_name}-${var.environment}"
   retention_in_days = 14
 }
 
-# --- INTEGRACION CON LAMBDA UPLOAD ---
 resource "aws_apigatewayv2_integration" "upload_integration" {
   api_id           = aws_apigatewayv2_api.http_api.id
   integration_type = "AWS_PROXY"
@@ -47,7 +44,6 @@ resource "aws_apigatewayv2_integration" "upload_integration" {
   payload_format_version = "2.0"
 }
 
-# --- RUTA POST /upload ---
 resource "aws_apigatewayv2_route" "upload_route" {
   api_id    = aws_apigatewayv2_api.http_api.id
   route_key = "POST /upload"

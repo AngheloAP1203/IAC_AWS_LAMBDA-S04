@@ -28,10 +28,12 @@ resource "aws_lambda_function" "crop" {
 }
 
 # Permiso para SQS invocar a la Lambda
+# batch_size=5 y ReportBatchItemFailures según el diagrama del profesor
 resource "aws_lambda_event_source_mapping" "sqs_trigger" {
-  event_source_arn = aws_sqs_queue.image_queue.arn
-  function_name    = aws_lambda_function.crop.arn
-  batch_size       = 10
+  event_source_arn        = aws_sqs_queue.image_queue.arn
+  function_name           = aws_lambda_function.crop.arn
+  batch_size              = 5
+  function_response_types = ["ReportBatchItemFailures"]
 }
 
 resource "aws_cloudwatch_log_group" "crop_logs" {

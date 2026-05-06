@@ -12,3 +12,8 @@ output "sqs_queue_url" {
   description = "URL de la cola SQS"
   value       = aws_sqs_queue.image_queue.id
 }
+
+output "workspace_activo" {
+  description = "Workspace de Terraform activo (entorno desplegado: dev / qa / prod)"
+  value       = terraform.workspace
+}

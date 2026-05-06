@@ -1,6 +1,6 @@
 # --- VPC ENDPOINTS ---
 
-# 1. Gateway Endpoint para S3 (inyectado en tablas de rutas privadas)
+# 1. Gateway Endpoint para S3
 resource "aws_vpc_endpoint" "s3" {
   vpc_id            = aws_vpc.main.id
   service_name      = "com.amazonaws.${var.aws_region}.s3"
@@ -18,7 +18,7 @@ resource "aws_vpc_endpoint" "s3" {
   })
 }
 
-# 2. Interface Endpoint para SQS (ENI por AZ, DNS privado)
+# 2. Interface Endpoint para SQS
 resource "aws_vpc_endpoint" "sqs" {
   vpc_id              = aws_vpc.main.id
   service_name        = "com.amazonaws.${var.aws_region}.sqs"
