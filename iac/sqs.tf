@@ -1,3 +1,4 @@
+# Configuración de la Cola principal y Dead-Letter Queue (DLQ)
 resource "aws_sqs_queue" "image_dlq" {
   name                      = "${var.project_name}-${var.environment}-image-dlq"
   message_retention_seconds = 1209600

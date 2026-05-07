@@ -1,3 +1,4 @@
+# Definición de la Lambda de subida (Upload)
 data "archive_file" "upload_zip" {
   type        = "zip"
   source_dir  = "${path.module}/../src/lambdas/upload"

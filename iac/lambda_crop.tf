@@ -1,3 +1,4 @@
+# Definición de la Lambda de procesamiento (Crop)
 data "archive_file" "crop_zip" {
   type        = "zip"
   source_dir  = "${path.module}/../src/lambdas/crop"

@@ -1,3 +1,4 @@
+# Configuración de Buckets y notificaciones de S3
 resource "aws_s3_bucket" "images" {
   bucket = "${var.project_name}-${var.environment}-images-upao-anghelo"
 }
