@@ -1,17 +1,17 @@
 resource "aws_sqs_queue" "image_dlq" {
   name                      = "${var.project_name}-${var.environment}-image-dlq"
-  message_retention_seconds = 1209600 # 14 dias
+  message_retention_seconds = 1209600
 }
 
 resource "aws_sqs_queue" "image_queue" {
   name                      = "${var.project_name}-${var.environment}-image-queue"
-  visibility_timeout_seconds = 360 # 6 veces el timeout de la lambda
-  message_retention_seconds  = 86400 # 1 día
-  receive_wait_time_seconds  = 20    # Long polling
+  visibility_timeout_seconds = 360
+  message_retention_seconds  = 86400
+  receive_wait_time_seconds  = 20
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = aws_sqs_queue.image_dlq.arn
-    maxReceiveCount     = 3 # Reintentos antes de ir a la DLQ
+    maxReceiveCount     = 3
   })
 }
 

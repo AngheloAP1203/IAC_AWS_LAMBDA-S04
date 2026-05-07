@@ -26,7 +26,7 @@ resource "aws_s3_bucket_notification" "s3_notif" {
   queue {
     queue_arn     = aws_sqs_queue.image_queue.arn
     events        = ["s3:ObjectCreated:*"]
-    filter_prefix = "uploads/" # Solo avisar cuando algo cae en uploads/
+    filter_prefix = "uploads/"
   }
 
   depends_on = [aws_sqs_queue_policy.allow_s3_events]
