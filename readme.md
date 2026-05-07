@@ -233,7 +233,7 @@ IAC_Semana04/
             └── package.json
 ```
 
-## Pasos que sigo para Desplegar
+## Pasos para Desplegar
 
 **1. Loguearme en AWS (SSO)**
 Antes de hacer nada, necesito tener mi sesión de AWS activa. En mi terminal ejecuto:
@@ -294,18 +294,11 @@ curl -X POST <URL_DEL_API> \
   --data-binary "@../assets/mi_foto_perfil.png"
 ```
 
-## Mis Requisitos de Entrega (Archivo PDF)
-
-Para completar la entrega de mi proyecto, debo subir un archivo **PDF** que incluye:
-- Capturas de pantalla de mi consola de AWS mostrando que mis servicios están desplegados (asegurándome de que en las capturas se vea el ID de mi cuenta).
-- La URL pública de mi proyecto y un pequeño resumen explicando cómo la uso (basándome en este README).
-- **Evidencia de limpieza:** Esto es obligatorio para mí. Adjunto mis capturas ejecutando los comandos de destrucción (`terraform destroy*`) para demostrar que eliminé mis recursos correctamente.
-
-## ¡Importante! Limpiar mis recursos
+## Limpienza de mis recursos
 
 Para que no me cobren nada en AWS (sobre todo por los NAT Gateways), me aseguro de destruir todo apenas termino de probar. 
 
-*Aviso: Antes de lanzar mi comando de destroy, entro a mi consola de S3 y vacío mi bucket manualmente, porque Terraform falla si intento borrar un bucket que todavía tiene archivos adentro.*
+*Sugerencia: Antes de lanzar mi comando de destroy, entro a mi consola de S3 y vacío mi bucket manualmente, porque Terraform falla si intento borrar un bucket que todavía tiene archivos adentro.*
 
 Mis comandos para destruir todo (elijo el entorno en el que estaba trabajando):
 
