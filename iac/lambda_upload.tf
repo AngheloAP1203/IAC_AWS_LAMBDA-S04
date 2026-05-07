@@ -1,4 +1,3 @@
-# Empaquetado del código
 data "archive_file" "upload_zip" {
   type        = "zip"
   source_dir  = "${path.module}/../src/lambdas/upload"
@@ -28,7 +27,7 @@ resource "aws_lambda_function" "upload" {
   }
 }
 
-# Permiso para que API Gateway pueda invocar esta Lambda
+
 resource "aws_lambda_permission" "apigw_upload" {
   statement_id  = "AllowAPIGatewayInvoke"
   action        = "lambda:InvokeFunction"
