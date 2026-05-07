@@ -4,7 +4,7 @@ En este repositorio he creado todo el código necesario para levantar mi propia 
 
 ## Herramientas y Servicios
 
-**Mis Herramientas:**
+**Herramientas:**
 - **Terraform:** Lo utilicé para desplegar toda la infraestructura como código (IaC).
 - **AWS CLI:** Lo uso para conectarme y gestionar los servicios directamente desde mi terminal.
 
