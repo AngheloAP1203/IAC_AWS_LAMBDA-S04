@@ -13,7 +13,7 @@ provider "aws" {
     region  = var.aws_region
     profile = var.aws_profile
 
-    # Etiquetar todos los recursos del proyecto
+
     default_tags {
         tags = {
             Project     = var.project_name
