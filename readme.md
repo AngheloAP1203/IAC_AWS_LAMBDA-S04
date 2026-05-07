@@ -15,11 +15,9 @@ En este repositorio he creado todo el código necesario para levantar mi propia 
 - **Amazon SQS:** Es mi cola de mensajes principal. También le agregué una Dead-Letter Queue (DLQ) para desacoplar el proceso y manejar mis errores de forma segura.
 - **Amazon VPC:** Hice que toda mi arquitectura corra dentro de una red privada usando subredes, NAT Gateways y VPC Endpoints (así me aseguro de que el tráfico de mis servicios S3 y SQS no salga a internet público).
 
-## Mi Diagrama de la Arquitectura
+## Diagrama de la Arquitectura
 
 He preparado mi proyecto para que pueda desplegarse en 3 entornos totalmente separados: **DEV**, **QA** y **PROD**. Para lograr esto, utilizo los `workspaces` de Terraform.
-
-Aquí dejo el diagrama exacto que armé con todos los componentes y cómo los conecté:
 
 ```mermaid
 %%{
@@ -193,9 +191,7 @@ flowchart TD
   class NAT_A,NAT_B natNode
 ```
 
-## Mi Estructura del Proyecto
-
-Así es como organicé mis carpetas y archivos:
+## Estructura del Proyecto
 
 ```text
 IAC_Semana04/
@@ -283,10 +279,10 @@ terraform apply -var-file="terraform.tfvars" -var="environment=prod" -auto-appro
 
 Suelo probarlo de dos maneras distintas:
 
-**Opcion A: Vía Consola S3 (Manual)**
+**Opcion 1: Vía Consola S3 (Manual)**
 Subo manualmente una imagen a la carpeta `uploads/` de mi bucket S3. Espero un par de segundos y verifico que aparezca mi versión procesada en la carpeta `processed/`.
 
-**Opción B: Vía API / Terminal**
+**Opción 2: Vía API / Terminal**
 Cuando termino el despliegue de Terraform, me devuelve la URL de mi API (`api_url`). Subo mi foto directamente desde la terminal con curl:
 ```bash
 curl -X POST <URL_DEL_API> \
@@ -294,11 +290,11 @@ curl -X POST <URL_DEL_API> \
   --data-binary "@../assets/mi_foto_perfil.png"
 ```
 
-## Limpienza de mis recursos
+## Limpienza de recursos
 
-Para que no me cobren nada en AWS (sobre todo por los NAT Gateways), me aseguro de destruir todo apenas termino de probar. 
+Me aseguro de destruir todo apenas termino de probar. 
 
-*Sugerencia: Antes de lanzar mi comando de destroy, entro a mi consola de S3 y vacío mi bucket manualmente, porque Terraform falla si intento borrar un bucket que todavía tiene archivos adentro.*
+*Antes de lanzar mi comando de destroy, entro a mi consola de S3 y vacío mi bucket manualmente, porque Terraform falla si intento borrar un bucket que todavía tiene archivos adentro.*
 
 Mis comandos para destruir todo (elijo el entorno en el que estaba trabajando):
 
