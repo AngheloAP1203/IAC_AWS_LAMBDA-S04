@@ -1,3 +1,4 @@
+// Funcionalidad: Lógica de recorte de imagen a 40x40 (Jimp/Sharp)
 import { S3Client, GetObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 import Jimp from 'jimp';
 

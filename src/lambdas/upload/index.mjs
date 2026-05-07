@@ -1,3 +1,4 @@
+// Funcionalidad: Lógica de subida de imágenes originales a S3
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import { v4 as uuidv4 } from 'uuid';
 import busboy from 'busboy';
