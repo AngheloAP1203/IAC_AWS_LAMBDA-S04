@@ -1,25 +1,25 @@
 # Proyecto: Procesador de Imágenes en AWS con Terraform
 
-Este repositorio contiene todo el código necesario para levantar una arquitectura Serverless en AWS que procesa imágenes automáticamente. Todo está hecho usando Terraform.
+En este repositorio he creado todo el código necesario para levantar mi propia arquitectura Serverless en AWS, la cual procesa imágenes automáticamente. Todo lo he hecho usando Terraform.
 
-## Herramientas y Servicios Utilizados
+## Herramientas y Servicios que Utilicé
 
-**Herramientas:**
-- **Terraform:** Para desplegar toda la infraestructura como código (IaC).
-- **AWS CLI:** Para conectarte y gestionar los servicios desde tu terminal.
+**Mis Herramientas:**
+- **Terraform:** Lo utilicé para desplegar toda la infraestructura como código (IaC).
+- **AWS CLI:** Lo uso para conectarme y gestionar los servicios directamente desde mi terminal.
 
 **Servicios de AWS:**
-- **API Gateway (HTTP API v2):** Funciona como nuestro punto de entrada público para recibir las peticiones.
-- **AWS Lambda:** Contiene la lógica del negocio sin usar servidores. Usamos dos: `upload-lambda` (para recibir la imagen) y `crop-lambda` (para recortarla con forma circular).
-- **Amazon S3:** Nuestro almacenamiento. Usamos el prefijo `uploads/` para imágenes originales y `processed/` para las ya recortadas.
-- **Amazon SQS:** Cola de mensajes principal y Dead-Letter Queue (DLQ) para desacoplar el proceso y manejar errores de forma segura.
-- **Amazon VPC:** Toda la arquitectura corre en una red privada usando subredes, NAT Gateways y VPC Endpoints (para que el tráfico de S3 y SQS no salga a internet público).
+- **API Gateway (HTTP API v2):** Lo configuré como mi punto de entrada público para recibir las peticiones.
+- **AWS Lambda:** Aquí puse toda mi lógica de negocio sin usar servidores. Creé dos funciones: `upload-lambda` (para recibir mi imagen) y `crop-lambda` (para recortarla con forma circular).
+- **Amazon S3:** Es mi almacenamiento. Configuré el prefijo `uploads/` para guardar mis imágenes originales y `processed/` para las que ya están recortadas.
+- **Amazon SQS:** Es mi cola de mensajes principal. También le agregué una Dead-Letter Queue (DLQ) para desacoplar el proceso y manejar mis errores de forma segura.
+- **Amazon VPC:** Hice que toda mi arquitectura corra dentro de una red privada usando subredes, NAT Gateways y VPC Endpoints (así me aseguro de que el tráfico de mis servicios S3 y SQS no salga a internet público).
 
-## Diagrama de la Arquitectura
+## Mi Diagrama de la Arquitectura
 
-El proyecto está preparado para poder desplegarse en 3 entornos totalmente separados: **DEV**, **QA** y **PROD**. Para lograr esto, utilizamos los `workspaces` de Terraform.
+He preparado mi proyecto para que pueda desplegarse en 3 entornos totalmente separados: **DEV**, **QA** y **PROD**. Para lograr esto, utilizo los `workspaces` de Terraform.
 
-Aquí tienes el diagrama exacto con todos los componentes y cómo se conectan:
+Aquí dejo el diagrama exacto que armé con todos los componentes y cómo los conecté:
 
 ```mermaid
 %%{
@@ -193,7 +193,9 @@ flowchart TD
   class NAT_A,NAT_B natNode
 ```
 
-## Estructura del Proyecto
+## Mi Estructura del Proyecto
+
+Así es como organicé mis carpetas y archivos:
 
 ```text
 IAC_Semana04/
@@ -231,30 +233,30 @@ IAC_Semana04/
             └── package.json
 ```
 
-## Pasos para Desplegar
+## Pasos que sigo para Desplegar
 
-**1. Loguearte en AWS (SSO)**
-Antes de hacer nada, necesitas tener tu sesión de AWS activa. En tu consola ejecuta:
+**1. Loguearme en AWS (SSO)**
+Antes de hacer nada, necesito tener mi sesión de AWS activa. En mi terminal ejecuto:
 ```bash
 aws configure sso --use-device-code
 ```
-Sigue el enlace, pon el código, selecciona tu cuenta, elige el rol, la región y ponle un nombre al perfil.
+Sigo el enlace, pongo mi código, selecciono mi cuenta, elijo el rol, la región y le asigno un nombre a mi perfil.
 
-**2. Archivo de variables**
-Copia el archivo de ejemplo y coloca tus datos reales (como el ID de tu cuenta de AWS y la región):
+**2. Configurar mi archivo de variables**
+Copio el archivo de ejemplo y coloco mis datos reales (como el ID de mi cuenta de AWS y mi región):
 ```bash
 cp iac/terraform.tfvars.example iac/terraform.tfvars
 ```
 
 **3. Inicializar Terraform**
-Entra a la carpeta de infraestructura y dale init:
+Entro a mi carpeta de infraestructura y la inicializo:
 ```bash
 cd iac
 terraform init
 ```
 
-**4. Levantar el entorno**
-Dependiendo de qué entorno necesites, ejecuta los comandos correspondientes. 
+**4. Levantar mi entorno**
+Dependiendo de qué entorno necesite crear, ejecuto los comandos correspondientes. 
 
 Para **DEV**:
 ```bash
@@ -277,46 +279,46 @@ terraform plan -var-file="terraform.tfvars" -var="environment=prod"
 terraform apply -var-file="terraform.tfvars" -var="environment=prod" -auto-approve
 ```
 
-## ¿Cómo probar que funciona?
+## ¿Cómo pruebo que mi proyecto funciona?
 
-Puedes probarlo de dos maneras distintas:
+Suelo probarlo de dos maneras distintas:
 
 **Opcion A: Vía Consola S3 (Manual)**
-Sube manualmente una imagen a la carpeta `uploads/` de tu bucket S3. Espera un par de segundos y verifica que aparezca la versión procesada en la carpeta `processed/`.
+Subo manualmente una imagen a la carpeta `uploads/` de mi bucket S3. Espero un par de segundos y verifico que aparezca mi versión procesada en la carpeta `processed/`.
 
 **Opción B: Vía API / Terminal**
-Cuando termine el despliegue de Terraform, te devolverá la URL de la API (`api_url`). Sube una foto directamente desde la terminal con curl:
+Cuando termino el despliegue de Terraform, me devuelve la URL de mi API (`api_url`). Subo mi foto directamente desde la terminal con curl:
 ```bash
 curl -X POST <URL_DEL_API> \
   -H "Content-Type: image/png" \
   --data-binary "@../assets/mi_foto_perfil.png"
 ```
 
-## Requisitos de Entrega (Archivo PDF)
+## Mis Requisitos de Entrega (Archivo PDF)
 
-Para completar la entrega del proyecto, debes subir un archivo **PDF** que incluya:
-- Capturas de pantalla de la consola de AWS mostrando que los servicios están desplegados (asegúrate de que en las capturas se vea el ID de tu cuenta).
-- La URL pública de tu proyecto y un pequeño resumen explicando cómo usarla (puedes basarte en este README).
-- **Evidencia de limpieza:** Esto es obligatorio. Adjunta capturas ejecutando los comandos de destrucción (`terraform destroy*`) para demostrar que los recursos fueron eliminados correctamente.
+Para completar la entrega de mi proyecto, debo subir un archivo **PDF** que incluye:
+- Capturas de pantalla de mi consola de AWS mostrando que mis servicios están desplegados (asegurándome de que en las capturas se vea el ID de mi cuenta).
+- La URL pública de mi proyecto y un pequeño resumen explicando cómo la uso (basándome en este README).
+- **Evidencia de limpieza:** Esto es obligatorio para mí. Adjunto mis capturas ejecutando los comandos de destrucción (`terraform destroy*`) para demostrar que eliminé mis recursos correctamente.
 
-## ¡Importante! Limpiar los recursos
+## ¡Importante! Limpiar mis recursos
 
-Para que no te cobren nada en AWS (sobre todo por los NAT Gateways), asegúrate de destruir todo apenas termines de probar. 
+Para que no me cobren nada en AWS (sobre todo por los NAT Gateways), me aseguro de destruir todo apenas termino de probar. 
 
-*Aviso: Antes de lanzar el comando de destroy, entra a la consola de S3 y vacía tu bucket manualmente, porque Terraform falla si intentas borrar un bucket que tiene archivos dentro.*
+*Aviso: Antes de lanzar mi comando de destroy, entro a mi consola de S3 y vacío mi bucket manualmente, porque Terraform falla si intento borrar un bucket que todavía tiene archivos adentro.*
 
-Comandos para destruir todo (elige el entorno en el que estabas trabajando):
+Mis comandos para destruir todo (elijo el entorno en el que estaba trabajando):
 
 ```bash
-# Si estabas en DEV
+# Si estaba en DEV
 terraform workspace select dev
 terraform destroy -var-file="terraform.tfvars" -auto-approve
 
-# Si estabas en QA
+# Si estaba en QA
 terraform workspace select qa
 terraform destroy -var-file="terraform.tfvars" -var="environment=qa" -auto-approve
 
-# Si estabas en PROD
+# Si estaba en PROD
 terraform workspace select prod
 terraform destroy -var-file="terraform.tfvars" -var="environment=prod" -auto-approve
 ```
