@@ -2,7 +2,7 @@
 
 En este repositorio he creado todo el código necesario para levantar mi propia arquitectura Serverless en AWS, la cual procesa imágenes automáticamente. Todo lo he hecho usando Terraform.
 
-## Herramientas y Servicios que Utilicé
+## Herramientas y Servicios
 
 **Mis Herramientas:**
 - **Terraform:** Lo utilicé para desplegar toda la infraestructura como código (IaC).
